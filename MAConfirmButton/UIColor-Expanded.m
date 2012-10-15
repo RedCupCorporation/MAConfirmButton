@@ -379,7 +379,7 @@ static NSLock *crayolaNameCacheLock;
 		[colors addObject:[UIColor colorWithHue:h2 saturation:s brightness:v alpha:a]];
 	}
 	
-	return [[colors copy] autorelease];
+	return [colors copy];
 }
 
 #pragma mark String utilities
@@ -401,7 +401,7 @@ static NSLock *crayolaNameCacheLock;
 }
 
 - (NSString *)hexStringFromColor {
-	return [NSString stringWithFormat:@"%0.6X", self.rgbHex];
+	return [NSString stringWithFormat:@"%0.6lX", self.rgbHex];
 }
 
 - (NSString *)closestColorNameFor: (const char *) aColorDatabase {
@@ -439,7 +439,7 @@ static NSLock *crayolaNameCacheLock;
 	for (name = bestPos-1; *name != ','; --name)
 		;
 	++name;
-	NSString *result = [[[NSString alloc] initWithBytes:name length:bestPos - name encoding:NSUTF8StringEncoding] autorelease];
+	NSString *result = [[NSString alloc] initWithBytes:name length:bestPos - name encoding:NSUTF8StringEncoding];
 	
 	return result;
 }
@@ -740,7 +740,7 @@ static const char *crayolaNameDB = ","
 + (void)populateColorNameCache {
 	NSAssert(colorNameCache == nil, @"+pouplateColorNameCache was called when colorNameCache was not nil");
 	NSMutableDictionary *cache = [NSMutableDictionary dictionary];
-	for (const char* entry = colorNameDB; entry = strchr(entry, ','); ) {
+	for (const char* entry = colorNameDB; (entry = strchr(entry, ',')); ) {
 		
 		// Step forward to the start of the name
 		++entry;
@@ -754,11 +754,14 @@ static const char *crayolaNameDB = ","
 		
 		// Get the color, and add to the dictionary
 		int hex, increment;
-		if (sscanf(++h, "%x%n", &hex, &increment) != 1) {[name release]; break;} // thanks Curtis Duhn
+		if (sscanf(++h, "%x%n", &hex, &increment) != 1)
+        {
+            break;
+        } // thanks Curtis Duhn
 		[cache setObject:[self colorWithRGBHex:hex] forKey:name];
 		
 		// Cleanup and move to the next item
-		[name release];
+
 		entry = h + increment;
 	}
 	colorNameCache = [cache copy];
@@ -767,7 +770,7 @@ static const char *crayolaNameDB = ","
 + (void)populateCrayolaNameCache {
 	NSAssert(crayolaNameCache == nil, @"+pouplateCrayolaNameCache was called when crayolaNameCache was not nil");
 	NSMutableDictionary *cache = [NSMutableDictionary dictionary];
-	for (const char* entry = crayolaNameDB; entry = strchr(entry, ','); ) {
+	for (const char* entry = crayolaNameDB; (entry = strchr(entry, ',')); ) {
 		
 		// Step forward to the start of the name
 		++entry;
@@ -781,11 +784,13 @@ static const char *crayolaNameDB = ","
 		
 		// Get the color, and add to the dictionary
 		int hex, increment;
-		if (sscanf(++h, "%x%n", &hex, &increment) != 1) {[name release]; break;} // thanks Curtis Duhn
+        if (sscanf(++h, "%x%n", &hex, &increment) != 1)
+        {
+            break;
+        } // thanks Curtis Duhn
 		[cache setObject:[self colorWithRGBHex:hex] forKey:name];
 		
 		// Cleanup and move to the next item
-		[name release];
 		entry = h + increment;
 	}
 	crayolaNameCache = [cache copy];

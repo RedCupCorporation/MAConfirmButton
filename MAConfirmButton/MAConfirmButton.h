@@ -13,19 +13,11 @@
 typedef enum {
   MAConfirmButtonToggleAnimationLeft = 0,
   MAConfirmButtonToggleAnimationRight = 1,
-  MAConfirmButtonToggleAnimationCenter =2
+  MAConfirmButtonToggleAnimationCenter = 2
 
 } MAConfirmButtonToggleAnimation;
 
-@interface MAConfirmButton : UIButton {
-
-@private
-	BOOL selected;
-	BOOL confirmed;
-	CALayer *colorLayer;
-	CALayer *darkenLayer;
-	UIButton *cancelOverlay;
-}
+@interface MAConfirmButton : UIButton
 
 @property (nonatomic, assign) MAConfirmButtonToggleAnimation toggleAnimation;
 
