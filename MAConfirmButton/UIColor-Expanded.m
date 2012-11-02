@@ -540,7 +540,7 @@ static NSLock *crayolaNameCacheLock;
 	return crayolaNameCache;
 }
 
-+ (UIColor *)colorWithHue:(CGFloat)hue saturation:(CGFloat)saturation brightness:(CGFloat)brightness alpha:(CGFloat)alpha {
++ (UIColor *) ma_colorWithHue:(CGFloat)hue saturation:(CGFloat)saturation brightness:(CGFloat)brightness alpha:(CGFloat)alpha {
 	// Convert hsb to rgb
 	CGFloat r,g,b;
 	[self hue:hue saturation:saturation brightness:brightness toRed:&r green:&g blue:&b];
