@@ -21,12 +21,18 @@ typedef enum {
 
 @property (nonatomic, assign) MAConfirmButtonToggleAnimation toggleAnimation;
 
+//+ (MAConfirmButton *) selectedButtonWithTitle:(NSString *)buttonText;
 + (MAConfirmButton *)buttonWithTitle:(NSString *)titleString confirm:(NSString *)confirmString;
 + (MAConfirmButton *)buttonWithDisabledTitle:(NSString *)disabledString;
-- (id)initWithTitle:(NSString *)titleString confirm:(NSString *)confirmString;
-- (id)initWithDisabledTitle:(NSString *)disabledString;
-- (void)disableWithTitle:(NSString *)disabledString;
-- (void)setAnchor:(CGPoint)anchor;
-- (void)setTintColor:(UIColor *)color;
+
+- (id) initWithTitle:(NSString *)titleString confirm:(NSString *)confirmString;
+- (id) initWithDisabledTitle:(NSString *)disabledString;
+
+- (void) disableWithTitle:(NSString *)disabledString;
+- (void) setAnchor:(CGPoint)anchor;
+- (void) setTintColor:(UIColor *)color;
+
+- (void) setSelected:(BOOL)selected;
+- (void) setSelected:(BOOL)selected withTitle:(NSString *)title;
 
 @end
