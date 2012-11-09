@@ -35,4 +35,6 @@ typedef enum {
 - (void) setSelected:(BOOL)selected;
 - (void) setSelected:(BOOL)selected withTitle:(NSString *)title;
 
+- (void) resetWithTitle:(NSString *)title;
+
 @end

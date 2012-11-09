@@ -139,6 +139,8 @@
         else
         {
             [self setTitle:self.title forState:UIControlStateNormal];
+            [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [self setTitleShadowColor:[UIColor colorWithWhite:0 alpha:0.5] forState:UIControlStateNormal];
             size = [self.title sizeWithFont:[UIFont boldSystemFontOfSize:kFontSize]];
         }
 
@@ -297,7 +299,7 @@
 
 - (void)setTintColor:(UIColor *)color;
 {
-    self.tint = [UIColor colorWithHue:color.hue saturation:color.saturation+0.15 brightness:color.brightness alpha:1];
+    self.tint = [UIColor colorWithHue:color.hue saturation:color.saturation brightness:color.brightness alpha:1];
     _colorLayer.backgroundColor = self.tint.CGColor;
     [self setNeedsDisplay];
 }
@@ -362,6 +364,17 @@
         }
     }
     
+}
+
+- (void) resetWithTitle:(NSString *)title;
+{
+    self.title = title;
+
+    [self lighten];
+    self.disabled = NO;
+    _confirmed = NO;
+    
+    [self cancel];
 }
 
 - (void)cancel;
