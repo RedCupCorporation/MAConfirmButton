@@ -37,15 +37,15 @@
 //    return button;
 //}
 
-+ (MAConfirmButton *)buttonWithTitle:(NSString *)titleString confirm:(NSString *)confirmString
++ (id)buttonWithTitle:(NSString *)titleString confirm:(NSString *)confirmString
 {
-    MAConfirmButton *button = [[super alloc] initWithTitle:titleString confirm:confirmString];
+    id button = [[super alloc] initWithTitle:titleString confirm:confirmString];
     return button;
 }
 
-+ (MAConfirmButton *)buttonWithDisabledTitle:(NSString *)disabledString
++ (id)buttonWithDisabledTitle:(NSString *)disabledString
 {
-    MAConfirmButton *button = [[super alloc] initWithDisabledTitle:disabledString];
+    id button = [[super alloc] initWithDisabledTitle:disabledString];
     return button;
 }
 
