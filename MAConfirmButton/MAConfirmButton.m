@@ -355,15 +355,25 @@
             self.selected = YES;
             if(!_cancelOverlay)
             {
+                UIApplication *app = [UIApplication sharedApplication];
                 _cancelOverlay = [UIButton buttonWithType:UIButtonTypeCustom];
-                [_cancelOverlay setFrame:CGRectMake(0, 0, 1024, 1024)];
-                [_cancelOverlay addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchDown];
-                [self.superview addSubview:_cancelOverlay];                
+                [_cancelOverlay setFrame:app.keyWindow.bounds];
+                [_cancelOverlay addTarget:self action:@selector(handleCancelOverlayTouch:event:) forControlEvents:UIControlEventTouchDown];
+                [app.keyWindow addSubview:_cancelOverlay];
             }
-            [self.superview bringSubviewToFront:self];
         }
     }
-    
+}
+
+- (void)handleCancelOverlayTouch:(id)sender event:(UIEvent *)event
+{
+    UITouch *touch = [[event touchesForView:sender] anyObject];
+    CGPoint pt = [touch locationInView:self];
+    if (CGRectContainsPoint(self.bounds, pt)) {
+        [self sendActionsForControlEvents:UIControlEventTouchUpInside];
+    } else {
+        [self cancel];
+    }
 }
 
 - (void) resetWithTitle:(NSString *)title;
